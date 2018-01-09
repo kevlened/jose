@@ -1,0 +1,44 @@
+{
+  "name": "jws-lite",
+  "amdName": "jwsLite",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/jws-lite.js",
+  "module": "dist/jws-lite.mjs",
+  "types": "typescript/index.d.ts",
+  "scripts": {
+    "pretest": "npm run build",
+    "test": "npm run test:browser && npm run test:react-native && npm run test:node",
+    "test:node": "node test/node.js",
+    "test:react-native": "node test/react-native-sim.js",
+    "start": "karma start karma.conf.js",
+    "test:browser": "karma start karma.conf.js --single-run",
+    "build": "microbundle --entry index.ts --output dist --compress false --external all && npm run build:types",
+    "build:types": "tsc index.ts --declaration --outDir typescript --target ES6 || exit 0",
+    "release": "npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+  },
+  "files": [
+    "dist/jws-lite.js",
+    "dist/jws-lite.mjs",
+    "typescript/index.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "b64u-lite": "^1.0.1",
+    "isomorphic-webcrypto": "^1.1.3",
+    "jwk-lite": "0.0.1",
+    "str2buf": "^1.2.0",
+    "jose-algorithms": "0.0.1"
+  },
+  "devDependencies": {
+    "jasmine": "^2.8.0",
+    "jasmine-core": "^2.8.0",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.1",
+    "karma-webpack": "^2.0.6",
+    "microbundle": "^0.2.4",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  }
+}
