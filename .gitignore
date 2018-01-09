@@ -1,3 +1,7 @@
+dist
+typescript
+.DS_Store
+
 # Logs
 logs
 *.log
