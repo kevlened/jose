@@ -62,8 +62,10 @@ export function importKey(json, alg, {
 
   // IE11 fix (should be added to webcrypto-shim)
   // https://connect.microsoft.com/IE/feedback/details/2242108/webcryptoapi-importing-jwk-with-use-field-fails
-  json = Object.assign({}, json)
-  delete json.use
+  if (global.msCrypto) {
+    json = Object.assign({}, json)
+    delete json.use
+  }
 
   return crypto.subtle.importKey(
     'jwk', // format
