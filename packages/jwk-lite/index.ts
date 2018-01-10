@@ -46,9 +46,11 @@ export function generateKey(alg, {
  * @param {object} json 
  * @param {string} alg 
  * @param {object=} options
+ * @param {boolean} [options.extractable=false]
+ * @param {string[]} [options.usages=["sign","verify"]]
  */
 export function importKey(json, alg, {
-  extractable = false,
+  extractable,
   usages = ['sign', 'verify']
 }) {
   if (!json) throw new Error('jwk must be an object')
@@ -71,7 +73,7 @@ export function importKey(json, alg, {
     'jwk', // format
     json,
     algo,
-    extractable,
+    !!extractable,
     usages
   )
   .catch(e => {

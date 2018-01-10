@@ -5,7 +5,7 @@ import { toBase64Url, fromBase64Url } from 'b64u-lite';
 import { toUint8Array, fromUint8Array } from 'str2buf'
 
 /**
- * Decode a string
+ * Decode a token
  * @param {string} token
  * @param {object} options
  * @param {boolean=} options.complete
@@ -57,7 +57,7 @@ export function sign(payload, key, { alg }) {
  * @param {string} token
  * @param {object} key 
  * @param {object} options
- * @return {boolean | string}
+ * @return {string}
  */
 export function verify(token, key, { algorithms }) {
   return new Promise(resolve => {
@@ -75,6 +75,9 @@ export function verify(token, key, { algorithms }) {
       jws.signature,
       jws.signedContent
     ))
-    .then(result => result ? jws.payload : false)
+    .then(result => {
+      if (!result) throw new Error('invalid token signature')
+      return jws.payload
+    })
   })
 }
