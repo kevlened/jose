@@ -25,7 +25,8 @@
     "b64u-lite": "^1.0.1",
     "isomorphic-webcrypto": "^1.0.1",
     "jwk-lite": "0.0.1",
-    "str2buf": "^1.2.0"
+    "str2buf": "^1.2.0",
+    "jose-algorithms": "0.0.1"
   },
   "devDependencies": {
     "jasmine": "^2.8.0",

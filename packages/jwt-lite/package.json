@@ -11,7 +11,8 @@
     "test": "npm run test:node && npm run test:browser",
     "test:node": "node test/node.js",
     "test:browser": "karma start karma.conf.js --single-run",
-    "build": "microbundle --entry index.ts --output dist --compress false --external all && npm run build:types",
+    "build": "microbundle --entry index.ts --output dist --compress false --external all && npm run build:bundle && npm run build:types",
+    "build:bundle": "microbundle --entry index.ts --output bundle --target browser",
     "build:types": "tsc index.ts --declaration --outDir typescript --target ES6 || exit 0",
     "release": "npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
