@@ -1,7 +1,7 @@
 import crypto from 'isomorphic-webcrypto'
 import * as algos from 'jose-algorithms'
-import * as jwk from 'jwk-lite'
-import { toBase64Url, fromBase64Url } from 'b64u-lite';
+import { importKey } from 'jwk-lite'
+import { toBase64Url, fromBase64Url } from 'b64u-lite'
 import { toUint8Array, fromUint8Array } from 'str2buf'
 
 /**
@@ -37,7 +37,7 @@ export function sign(payload, key, { alg }) {
   })
   .then(payloadString => {
     const buffer = toUint8Array(payloadString)
-    return jwk.importKey(key, alg)
+    return importKey(key, alg)
     .then(signingKey => {
       const algo = Object.assign({}, algos[alg])
       delete algo.namedCurve
@@ -68,7 +68,7 @@ export function verify(token, key, { algorithms }) {
       throw new Error(`alg must be one of ${algorithms}`)
     if (!algos[jws.header.alg])
       throw new Error(`alg must be one of ${Object.keys(algos)}`)
-    return jwk.importKey(key, jws.header.alg)
+    return importKey(key, jws.header.alg)
     .then(verifyingKey => crypto.subtle.verify(
       algos[jws.header.alg],
       verifyingKey,
