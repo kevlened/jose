@@ -1,4 +1,4 @@
-import * as crypto from 'isomorphic-webcrypto'
+import crypto from 'isomorphic-webcrypto'
 import * as algos from 'jose-algorithms'
 import * as jwk from 'jwk-lite'
 import { toBase64Url, fromBase64Url } from 'b64u-lite';

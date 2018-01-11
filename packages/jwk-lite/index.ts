@@ -1,4 +1,4 @@
-import * as crypto from 'isomorphic-webcrypto'
+import crypto from 'isomorphic-webcrypto'
 import * as algos from 'jose-algorithms'
 
 /**
