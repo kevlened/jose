@@ -8,17 +8,17 @@ import * as algos from 'jose-algorithms'
  * @param {object=} options
  */
 export function generateKey(alg, {
-  modulusLength,
-  publicExponent,
+  modulusLength = 2048,
+  publicExponent = new Uint8Array([0x01, 0x00, 0x01]), // 65537
   usages = ['sign', 'verify'],
   extractable = true
-}) {
+} = {}) {
   if (!algos[alg]) throw new Error(`alg must be one of ${Object.keys(algos)}`)
   const algo = Object.assign({}, algos[alg])
 
   if (algo.name === 'RSASSA-PKCS1-v1_5') {
-    algo.modulusLength = modulusLength || 2048
-    algo.publicExponent = publicExponent || new Uint8Array([0x01, 0x00, 0x01]) // 65537
+    algo.modulusLength = modulusLength
+    algo.publicExponent = publicExponent
   }
 
   if (algo.name === 'ECDSA') {
@@ -44,16 +44,18 @@ export function generateKey(alg, {
 /**
  * Import a jwk from a JSON object
  * @param {object} json 
- * @param {string} alg 
  * @param {object=} options
+ * @param {string} [options.alg=null] Defaults to alg in json
  * @param {boolean} [options.extractable=false]
- * @param {string[]} [options.usages=["sign","verify"]]
+ * @param {string[]} [options.usages=null] Defaults to key_ops in json
  */
-export function importKey(json, alg, {
-  extractable,
-  usages = ['sign', 'verify']
-}) {
+export function importKey(json, {
+  alg = null,
+  extractable = true,
+  usages = null
+} = {}) {
   if (!json) throw new Error('jwk must be an object')
+  alg = alg || json.alg;
   if (!algos[alg]) throw new Error(`alg must be one of ${Object.keys(algos)}`)
   
   let algo = Object.assign({}, algos[alg])
@@ -64,7 +66,7 @@ export function importKey(json, alg, {
 
   // IE11 fix (should be added to webcrypto-shim)
   // https://connect.microsoft.com/IE/feedback/details/2242108/webcryptoapi-importing-jwk-with-use-field-fails
-  if (global.msCrypto) {
+  if (typeof window !== 'undefined' && window.msCrypto) {
     json = Object.assign({}, json)
     delete json.use
   }
@@ -73,8 +75,8 @@ export function importKey(json, alg, {
     'jwk', // format
     json,
     algo,
-    !!extractable,
-    usages
+    extractable,
+    usages || json.key_ops || ['sign', 'verify']
   )
   .catch(e => {
     throw new Error(`couldn't import key: ${e.message}`)
@@ -86,29 +88,5 @@ export function importKey(json, alg, {
  * @param key 
  */
 export function exportKey(key) {
-  let exportPromise
-
-  // HMAC only returns a sharedKey
-  if (key.algorithm && key.algorithm.name === 'HMAC') {
-    exportPromise = crypto.subtle.exportKey('jwk', key)
-    .then(sharedKey => { return { sharedKey }})
-
-  // Everything else returns a public and private key
-  } else {
-    exportPromise = Promise.all([
-      crypto.subtle.exportKey('jwk', key.publicKey),
-      crypto.subtle.exportKey('jwk', key.privateKey)
-    ])
-    .then((keys = []) => {
-      return {
-        publicKey: keys[0],
-        privateKey: keys[1]
-      }
-    })
-  }
-
-  return exportPromise
-  .catch(e => {
-    throw new Error(`couldn't export key: ${e.message}`)
-  })
+  return crypto.subtle.exportKey('jwk', key);
 }
