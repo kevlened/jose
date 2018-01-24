@@ -1,6 +1,4 @@
 const jws = require('../')
-const jwk = require('jwk-lite')
-const algorithms = require('jose-algorithms')
 
 let env;
 if (typeof global !== 'undefined' && global.isReactNativeSim) {
@@ -105,10 +103,10 @@ describe('sign', () => {
   });
 
   ['ES256', 'ES384', 'ES512'].map(algo => {
-    supports({ importKey: algo, sign: algo }).it(`signs with ${algo}`, () => {
-      return jws.sign(payload, keys[algo].private, { alg: algo })
+    supports({ importKey: algo, sign: algo }).it(`signs with ${algo}`, () =>
+      jws.sign(payload, keys[algo].private, { alg: algo })
       .then(res => expect(res).toBeDefined())
-    })
+    )
   });
 })
 
