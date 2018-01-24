@@ -1,8 +1,8 @@
 import crypto from 'isomorphic-webcrypto'
 import * as algos from 'jose-algorithms'
 import { importKey } from 'jwk-lite'
-import { toBase64Url, fromBase64Url } from 'b64u-lite'
-import { toUint8Array, fromUint8Array } from 'str2buf'
+import { toBase64Url, fromBase64Url, toBinaryString, fromBinaryString } from 'b64u-lite'
+import { toUint8Array, fromBuffer } from 'str2buf'
 
 /**
  * Decode a token
@@ -11,7 +11,7 @@ import { toUint8Array, fromUint8Array } from 'str2buf'
  * @param {boolean=} options.complete
  * @return {string | {header: object, payload: string, signedContent: Uint8Array, signature: Uint8Array}}
  */
-export function decode(token = '', { complete }) {
+export function decode(token = '', { complete } = {}) {
   const parts = token.split('.')
   if (parts.length !== 3) throw new Error('token must have 3 parts')
   if (!complete) return fromBase64Url(parts[1])
@@ -19,7 +19,7 @@ export function decode(token = '', { complete }) {
     header: JSON.parse(fromBase64Url(parts[0])),
     payload: fromBase64Url(parts[1]),
     signedContent: toUint8Array(parts[0] + '.' + parts[1]),
-    signature: toUint8Array(fromBase64Url(parts[2]))
+    signature: toUint8Array(toBinaryString(parts[2]))
   }
 }
 
@@ -30,14 +30,15 @@ export function decode(token = '', { complete }) {
  * @param {object=} options
  * @return {string}
  */
-export function sign(payload, key, { alg }) {
+export function sign(payload, key, { alg } = {}) {
   return new Promise(resolve => {
+    alg = alg || key.alg;
     if (!algos[alg]) throw new Error(`alg must be one of ${Object.keys(algos)}`)
-    resolve(toBase64Url({ alg }) + '.' + toBase64Url(payload))
+    resolve(toBase64Url(JSON.stringify({ alg })) + '.' + toBase64Url(payload))
   })
   .then(payloadString => {
     const buffer = toUint8Array(payloadString)
-    return importKey(key, alg)
+    return importKey(key, { alg })
     .then(signingKey => {
       const algo = Object.assign({}, algos[alg])
       delete algo.namedCurve
@@ -47,8 +48,7 @@ export function sign(payload, key, { alg }) {
         buffer
       )
     })
-    .then(signature =>
-      payloadString + '.' + toBase64Url(fromUint8Array(signature)))
+    .then(signature => payloadString + '.' + fromBinaryString(fromBuffer(signature)))
   })
 }
 
@@ -59,7 +59,8 @@ export function sign(payload, key, { alg }) {
  * @param {object} options
  * @return {string}
  */
-export function verify(token, key, { algorithms }) {
+export function verify(token, key, { algorithms } = {}) {
+  algorithms = algorithms || Object.keys(algos)
   return new Promise(resolve => {
     resolve(decode(token, { complete: true }))
   })
@@ -68,7 +69,7 @@ export function verify(token, key, { algorithms }) {
       throw new Error(`alg must be one of ${algorithms}`)
     if (!algos[jws.header.alg])
       throw new Error(`alg must be one of ${Object.keys(algos)}`)
-    return importKey(key, jws.header.alg)
+    return importKey(key, { alg: jws.header.alg })
     .then(verifyingKey => crypto.subtle.verify(
       algos[jws.header.alg],
       verifyingKey,
