@@ -1,7 +1,7 @@
 {
   "name": "jwt-lite",
   "amdName": "jwtLite",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/jwt-lite.js",
   "module": "dist/jwt-lite.mjs",
@@ -24,7 +24,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "jws-lite": "0.0.1"
+    "jws-lite": "^0.0.2"
   },
   "devDependencies": {
     "jasmine": "^2.8.0",
