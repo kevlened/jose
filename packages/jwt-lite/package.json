@@ -1,7 +1,7 @@
 {
   "name": "jwt-lite",
   "amdName": "jwtLite",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/jwt-lite.js",
   "module": "dist/jwt-lite.mjs",
