@@ -1,5 +1,6 @@
 import * as jws from 'jws-lite'
 
+
 /**
  * Decode a token
  * @param {string} token

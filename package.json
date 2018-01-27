@@ -2,5 +2,10 @@
 	"private": true,
 	"devDependencies": {
 		"lerna": "^2.5.1"
+	},
+	"scripts": {
+		"test": "lerna run test",
+		"prerelease": "npm test",
+		"release": "lerna publish"
 	}
 }
