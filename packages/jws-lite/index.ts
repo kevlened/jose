@@ -7,14 +7,11 @@ import { toUint8Array, fromBuffer } from 'str2buf'
 /**
  * Decode a token
  * @param {string} token
- * @param {object} options
- * @param {boolean=} options.complete
- * @return {string | {header: object, payload: string, signedContent: Uint8Array, signature: Uint8Array}}
+ * @return {header: object, payload: string, signedContent: Uint8Array, signature: Uint8Array}
  */
-export function decode(token = '', { complete } = {}) {
+export function decode(token = '') {
   const parts = token.split('.')
   if (parts.length !== 3) throw new Error('token must have 3 parts')
-  if (!complete) return fromBase64Url(parts[1])
   return {
     header: JSON.parse(fromBase64Url(parts[0])),
     payload: fromBase64Url(parts[1]),
@@ -62,7 +59,7 @@ export function sign(payload, key, { alg } = {}) {
 export function verify(token, key, { algorithms } = {}) {
   algorithms = algorithms || Object.keys(algos)
   return new Promise(resolve => {
-    resolve(decode(token, { complete: true }))
+    resolve(decode(token))
   })
   .then(jws => {
     if (algorithms && !algorithms.includes(jws.header.alg))

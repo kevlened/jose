@@ -2,7 +2,7 @@
   "name": "jwk-lite",
   "amdName": "jwkLite",
   "version": "0.0.2",
-  "description": "",
+  "description": "isomorphic library to generate, import, and export JSON Web Keys",
   "main": "dist/jwk-lite.js",
   "module": "dist/jwk-lite.mjs",
   "types": "typescript/index.d.ts",
@@ -22,8 +22,12 @@
     "dist/jwk-lite.mjs",
     "typescript/index.d.ts"
   ],
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "JOSE",
+    "JWK"
+  ],
+  "repository": "https://github.com/kevlened/jose/tree/master/packages/jwk-lite",
+  "author": "kevlened",
   "license": "MIT",
   "dependencies": {
     "isomorphic-webcrypto": "^1.1.3",

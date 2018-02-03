@@ -1,18 +1,15 @@
 import * as jws from 'jws-lite'
 
-
 /**
  * Decode a token
  * @param {string} token
- * @param {object} options
- * @param {boolean=} options.complete
- * @return {string | {header: object, claimsSet: string, signedContent: Uint8Array, signature: Uint8Array}}
+ * @return {header: object, claimsSet: string, signedContent: Uint8Array, signature: Uint8Array}
  */
-export function decode(token, { complete } = {}) {
-  const jwt = jws.decode(token, { complete: true })
+export function decode(token) {
+  const jwt = jws.decode(token)
   jwt.claimsSet = JSON.parse(jwt.payload)
   delete jwt.payload
-  return complete ? jwt : jwt.claimsSet
+  return jwt
 }
 
 /**
