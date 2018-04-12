@@ -1,4 +1,8 @@
-import * as jws from 'jws-lite'
+import {
+  decode as jwsDecode,
+  sign as jwsSign,
+  verify as jwsVerify
+} from 'jws-lite'
 
 /**
  * Decode a token
@@ -6,7 +10,7 @@ import * as jws from 'jws-lite'
  * @return {header: object, claimsSet: string, signedContent: Uint8Array, signature: Uint8Array}
  */
 export function decode(token) {
-  const jwt = jws.decode(token)
+  const jwt = jwsDecode(token)
   jwt.claimsSet = JSON.parse(jwt.payload)
   delete jwt.payload
   return jwt
@@ -20,7 +24,7 @@ export function decode(token) {
  * @return {string}
  */
 export function sign(claimsSet, key, { alg } = {}) {
-  return jws.sign(JSON.stringify(claimsSet), key, { alg })
+  return jwsSign(JSON.stringify(claimsSet), key, { alg })
 }
 
 /**
@@ -35,10 +39,11 @@ export function verify(token, key, {
   issuer,
   subject,
   audience,
+  expiration,
   clockSkew = 0,
   time = Math.floor(Date.now()/1000)
 } = {}) {
-  return jws.verify(token, key, { algorithms })
+  return jwsVerify(token, key, { algorithms })
   .then(payload => {
     const claimsSet = JSON.parse(payload)
 
@@ -58,7 +63,8 @@ export function verify(token, key, {
     if (claimsSet.nbf && (time + clockSkew) < claimsSet.nbf)
       throw new Error(`invalid before ${claimsSet.nbf}`)
 
-    if (claimsSet.exp && (time - clockSkew) > claimsSet.exp)
+    const exp = typeof expiration !== 'undefined' ? expiration : claimsSet.exp;
+    if (claimsSet.exp && (time - clockSkew) > exp)
       throw new Error('expired token')
 
     return claimsSet

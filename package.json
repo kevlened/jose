@@ -4,6 +4,7 @@
 		"lerna": "^2.5.1"
 	},
 	"scripts": {
+		"postinstall": "lerna bootstrap",
 		"test": "lerna run test",
 		"prerelease": "npm test",
 		"release": "lerna publish"
