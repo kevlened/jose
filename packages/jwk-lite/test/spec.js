@@ -166,6 +166,42 @@ describe('importKey', () => {
     );
   });
 
+  ['RS256', 'RS384', 'RS512'].map(algo => {
+    supports({ importKey: algo }).it(`imports a private ${algo} without key_ops`, () =>
+      jwk.importKey(Object.assign({}, keys[algo].private, { key_ops: null }))
+      .then(res => {
+        expect(res).toBeDefined();
+        expect(res.type).toEqual('private')
+        expect(res.extractable).toEqual(true)
+        expect(res.usages).toEqual(['sign'])
+        expect(res.algorithm).toBeDefined()
+        expect(res.algorithm.name).toEqual(algorithms[algo].name)
+        expect(res.algorithm.hash).toBeDefined()
+        expect(res.algorithm.hash.name).toEqual(algorithms[algo].hash.name)
+        expect(res.algorithm.modulusLength).toEqual(2048)
+        expect(res.algorithm.publicExponent).toEqual(new Uint8Array([1,0,1]))
+      })
+    );
+  });
+
+  ['RS256', 'RS384', 'RS512'].map(algo => {
+    supports({ importKey: algo }).it(`imports a public ${algo} without key_ops`, () =>
+      jwk.importKey(Object.assign({}, keys[algo].public, { key_ops: null }))
+      .then(res => {
+        expect(res).toBeDefined();
+        expect(res.type).toEqual('public')
+        expect(res.extractable).toEqual(true)
+        expect(res.usages).toEqual(['verify'])
+        expect(res.algorithm).toBeDefined()
+        expect(res.algorithm.name).toEqual(algorithms[algo].name)
+        expect(res.algorithm.hash).toBeDefined()
+        expect(res.algorithm.hash.name).toEqual(algorithms[algo].hash.name)
+        expect(res.algorithm.modulusLength).toEqual(2048)
+        expect(res.algorithm.publicExponent).toEqual(new Uint8Array([1,0,1]))
+      })
+    );
+  });
+
   ['HS256', 'HS384', 'HS512'].map(algo => {
     supports({ importKey: algo }).it(`imports an ${algo}`, () =>
       jwk.importKey(keys[algo].shared)

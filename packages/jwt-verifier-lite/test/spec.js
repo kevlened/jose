@@ -7,8 +7,7 @@ const standardKey = {
   kid: 'test-id',
   kty: 'RSA',
   n: '3ZWrUY0Y6IKN1qI4BhxR2C7oHVFgGPYkd38uGq1jQNSqEvJFcN93CYm16_G78FAFKWqwsJb3Wx-nbxDn6LtP4AhULB1H0K0g7_jLklDAHvI8yhOKlvoyvsUFPWtNxlJyh5JJXvkNKV_4Oo12e69f8QCuQ6NpEPl-cSvXIqUYBCs',
-  use: 'sig',
-  key_ops: ['verify']
+  use: 'sig'
 };
 
 const standardClaims = {
