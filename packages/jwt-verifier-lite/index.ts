@@ -78,7 +78,7 @@ function findKey(keys, kid) {
   let k = keys.length;
   while (k--) {
     const key = keys[k];
-    if (key.kid = kid) return key;
+    if (key.kid === kid) return key;
   }
 }
 

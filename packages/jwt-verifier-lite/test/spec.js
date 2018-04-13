@@ -47,7 +47,8 @@ fetch.and.callFake(url => {
   if (url === jwksUrl) {
     return Promise.resolve({
       json() {
-        return { keys: [standardKey] };
+        // Puts keys before and after to ensure we're searching for the key
+        return { keys: [{kid: 'some-id'}, standardKey, {kid: 'another-id'}] };
       }
     });
   }
