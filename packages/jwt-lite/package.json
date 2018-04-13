@@ -1,7 +1,7 @@
 {
   "name": "jwt-lite",
   "amdName": "jwtLite",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "isomorphic library to decode, sign, and verify JSON Web Tokens",
   "main": "dist/jwt-lite.js",
   "module": "dist/jwt-lite.mjs",
