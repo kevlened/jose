@@ -1,7 +1,7 @@
 {
   "name": "jwt-verifier-lite",
   "amdName": "jwtVerifierLite",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "isomorphic library to verify an issuer's JSON Web Tokens",
   "main": "dist/jwt-verifier-lite.js",
   "types": "typescript/index.d.ts",
