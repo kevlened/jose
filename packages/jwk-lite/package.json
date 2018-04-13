@@ -1,7 +1,7 @@
 {
   "name": "jwk-lite",
   "amdName": "jwkLite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "isomorphic library to generate, import, and export JSON Web Keys",
   "main": "dist/jwk-lite.js",
   "module": "dist/jwk-lite.mjs",
