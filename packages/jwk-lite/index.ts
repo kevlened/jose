@@ -71,12 +71,19 @@ export function importKey(json, {
     delete json.use
   }
 
+  // The node polyfill doesn't work without key_ops, although key_ops is optional
+  // https://tools.ietf.org/html/rfc7517#section-4.3
+  if (!json.key_ops) {
+    json = Object.assign({}, json)
+    json.key_ops = json.d ? ['sign'] : ['verify']
+  }
+
   return crypto.subtle.importKey(
     'jwk', // format
     json,
     algo,
     extractable,
-    usages || json.key_ops || ['sign', 'verify']
+    usages || json.key_ops
   )
   .catch(e => {
     throw new Error(`couldn't import key: ${e.message}`)
