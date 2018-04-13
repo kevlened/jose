@@ -1,4 +1,7 @@
-import * as jwt from 'jwt-lite';
+import {
+  decode as jwtDecode,
+  verify as jwtVerify
+} from 'jwt-lite';
 import fetch from 'isomorphic-unfetch';
 
 function promiseMutex(fn) {
@@ -121,13 +124,13 @@ export default class JwtVerifier {
       return agg
     }, {});
     opts = Object.assign(opts, options);
-    return new Promise(resolve => resolve(jwt.decode(token)))
+    return new Promise(resolve => resolve(jwtDecode(token)))
     .then(decoded => {
       if (!decoded.header.kid) {
         throw new Error('A kid must be present in the JWT header');
       }
       return getKey(this, decoded.header.kid);
     })
-    .then(key => jwt.verify(token, key, options));
+    .then(key => jwtVerify(token, key, options));
   }
 };

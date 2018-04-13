@@ -1,35 +1,20 @@
-# jwt-lite
+# jwt-verifier-lite
 
 ## Install
 
-`npm install jwt-lite`
+`npm install jwt-verifier-lite`
 
 ## Usage
 
 ```javascript
-const jwt = require('jwt-lite')
+const JwtVerifier = require('jwt-verifier-lite')
 
-const decoded = jwt.decode('somejwt');
-const {
-  header,         // jose header
-  claimsSet,      // claimsSet as a JSON object
-  signedContent,  // UintArray of the signed content
-  signature       // UintArray of the signature
-} = decoded;
+const verifier = new JwtVerifier({
+  issuer: 'https://www.example.com'
+});
 
-jwt.sign(payload, jwk)
-.then(jwtToken => console.log(jwtToken))
-
-jwt.verify(jwtToken, jwk)
-.then(payload => console.log(payload))
-```
-
-## Can it be smaller?
-
-If you use ES6 imports with a bundler that supports tree-shaking, yes!
-
-```javascript
-import { sign } from 'jwt-lite'
+verifier.verify(jwtToken)
+.then(claimsSet => console.log(claimsSet))
 ```
 
 ## License

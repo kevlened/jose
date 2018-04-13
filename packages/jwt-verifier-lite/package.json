@@ -18,7 +18,7 @@
   },
   "files": [
     "dist/jwt-verifier-lite.js",
-    "dist/jwt-verifier-lite.mjs",
+    "dist/jwt-verifier-lite.m.js",
     "typescript/index.d.ts"
   ],
   "repository": "https://github.com/kevlened/jose/tree/master/packages/jwt-verifier-lite",
