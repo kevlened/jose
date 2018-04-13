@@ -4,6 +4,9 @@ import {
 } from 'jwt-lite';
 import fetch from 'isomorphic-unfetch';
 
+// Queues incoming Promises if an existing Promise exists.
+// This makes it easy to prevent parallel (and thus, redundant)
+// requests to the keys or well-known endpoints.
 function promiseMutex(fn) {
   const queue = [];
   function flush() {
@@ -89,7 +92,6 @@ function getKey(verifier, kid) {
 
 export default class JwtVerifier {
   constructor(options = {}) {
-    // TODO: do you have to provide issuer or keys
     if (!options.issuer && !options.keys) {
       throw new Error('Must provide an issuer or keys');
     }
