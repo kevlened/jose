@@ -39,7 +39,7 @@ fetch.and.callFake(url => {
   if (url === wellKnownUrl) {
     return Promise.resolve({
       json() {
-        return { jwks_endpoint: jwksUrl };
+        return { jwks_uri: jwksUrl };
       }
     });
   }

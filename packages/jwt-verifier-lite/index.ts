@@ -54,7 +54,12 @@ const safeGetKeys = promiseMutex((verifier, force) => {
     return Promise.resolve(verifier._keys);
   }
   return getWellKnown(verifier)
-  .then(wellKnown => fetch(wellKnown.jwks_endpoint))
+  .then(wellKnown => {
+    if (!wellKnown.jwks_uri) {
+      throw new Error('no jwks_uri in the well-known config');
+    }
+    return fetch(wellKnown.jwks_uri);
+  })
   .then(res => res.json())
   .then(json => {
     verifier._lastKeysUpdate = Date.now();
