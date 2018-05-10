@@ -1,7 +1,7 @@
 {
   "name": "jwt-verifier-lite",
   "amdName": "jwtVerifierLite",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "isomorphic library to verify an issuer's JSON Web Tokens",
   "main": "dist/jwt-verifier-lite.js",
   "types": "typescript/index.d.ts",
@@ -26,7 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "isomorphic-unfetch": "^2.0.0",
-    "jwt-lite": "^1.1.1"
+    "jwt-lite": "^1.1.2"
   },
   "devDependencies": {
     "jasmine": "^2.8.0",
