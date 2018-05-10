@@ -20,11 +20,11 @@ export function decode(token) {
  * Sign a claims set with a key
  * @param {object} claimsSet
  * @param {object} key 
- * @param {object=} options
+ * @param {object=} header
  * @return {string}
  */
-export function sign(claimsSet, key, { alg } = {}) {
-  return jwsSign(JSON.stringify(claimsSet), key, { alg })
+export function sign(claimsSet, key, header = {}) {
+  return jwsSign(JSON.stringify(claimsSet), key, header)
 }
 
 /**

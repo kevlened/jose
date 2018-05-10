@@ -24,14 +24,15 @@ export function decode(token = '') {
  * Sign a payload with a key
  * @param {string} payload
  * @param {object} key 
- * @param {object=} options
+ * @param {object=} header
  * @return {string}
  */
-export function sign(payload, key, { alg } = {}) {
+export function sign(payload, key, header = {}) {
+  let alg = header.alg;
   return new Promise(resolve => {
-    alg = alg || key.alg;
+    header.alg = alg = alg || key.alg;
     if (!algos[alg]) throw new Error(`alg must be one of ${Object.keys(algos)}`)
-    resolve(toBase64Url(JSON.stringify({ alg })) + '.' + toBase64Url(payload))
+    resolve(toBase64Url(JSON.stringify(header)) + '.' + toBase64Url(payload))
   })
   .then(payloadString => {
     const buffer = toUint8Array(payloadString)
