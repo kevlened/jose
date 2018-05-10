@@ -11,19 +11,19 @@ const jwk = require('jwk-lite')
 
 jwk.generateKey('HS256')
 .then(keys => {
-  console.log(keys.shared)
+  console.log(keys.sharedKey)
 })
 
 jwk.generateKey('RS256')
 .then(keys => {
-  console.log(keys.public)
-  console.log(keys.private)
+  console.log(keys.publicKey)
+  console.log(keys.privateKey)
 })
 
 jwk.generateKey('ES256')
 .then(keys => {
-  console.log(keys.public)
-  console.log(keys.private)
+  console.log(keys.publicKey)
+  console.log(keys.privateKey)
 })
 
 jwk.exportKey(key)
