@@ -30,8 +30,8 @@
   "author": "kevlened",
   "license": "MIT",
   "dependencies": {
-    "isomorphic-webcrypto": "^1.6.1",
-    "jose-algorithms": "file:../jose-algorithms"
+    "isomorphic-webcrypto": "^1.6.2",
+    "jose-algorithms": "^0.0.3"
   },
   "devDependencies": {
     "jasmine": "^3.4.0",
