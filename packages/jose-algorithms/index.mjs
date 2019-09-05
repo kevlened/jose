@@ -1,6 +1,9 @@
 export const HS256 = { name: 'HMAC', hash: { name: 'SHA-256' }}
 export const HS384 = { name: 'HMAC', hash: { name: 'SHA-384' }}
-export const HS512 = { name: 'HMAC', hash: { name: 'SHA-512' }}
+export const HS512 = { name: 'HMAC', hash: { name: 'SHA-512' } }
+export const PS256 = { name: 'RSA-PSS', hash: { name: 'SHA-256' }, saltLength: 32 }
+export const PS384 = { name: 'RSA-PSS', hash: { name: 'SHA-384' }, saltLength: 48 }
+export const PS512 = { name: 'RSA-PSS', hash: { name: 'SHA-512' }, saltLength: 64 }
 export const RS256 = { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-256' }}
 export const RS384 = { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-384' }}
 export const RS512 = { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-512' }}
