@@ -26,8 +26,8 @@
   "author": "kevlened",
   "license": "MIT",
   "dependencies": {
-    "isomorphic-webcrypto": "^1.6.1",
-    "jws-lite": "file:../jws-lite"
+    "isomorphic-webcrypto": "^1.6.2",
+    "jws-lite": "^0.1.1"
   },
   "devDependencies": {
     "jasmine": "^3.4.0",

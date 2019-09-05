@@ -247,7 +247,7 @@ describe('importKey', () => {
 });
 
 describe('exportKey', () => {
-  ['RS256', 'RS384', 'RS512'].map(algo => {
+  ['RS256', 'RS384', 'RS512', 'PS256', 'PS384', 'PS512'].map(algo => {
     supports({ importKey: algo, exportKey: algo }).it(`exports an ${algo}`, () =>
       jwk.importKey(keys[algo].private)
       .then(key => jwk.exportKey(key))

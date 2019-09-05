@@ -26,8 +26,8 @@
   "license": "MIT",
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
-    "isomorphic-webcrypto": "^1.6.1",
-    "jwt-lite": "file:../jwt-lite"
+    "isomorphic-webcrypto": "^1.6.2",
+    "jwt-lite": "^1.1.2"
   },
   "devDependencies": {
     "jasmine": "^3.4.0",
