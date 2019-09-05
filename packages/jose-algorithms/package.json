@@ -1,6 +1,6 @@
 {
   "name": "jose-algorithms",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A collection of JOSE-compatible algorithms",
   "main": "index.js",
   "module": "index.mjs",
