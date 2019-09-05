@@ -14,6 +14,12 @@ jwk.generateKey('HS256')
   console.log(keys.sharedKey)
 })
 
+jwk.generateKey('PS256')
+.then(keys => {
+  console.log(keys.publicKey)
+  console.log(keys.privateKey)
+})
+
 jwk.generateKey('RS256')
 .then(keys => {
   console.log(keys.publicKey)

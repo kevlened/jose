@@ -28,8 +28,8 @@
   "dependencies": {
     "b64u-lite": "^1.0.1",
     "isomorphic-webcrypto": "^1.1.3",
-    "jose-algorithms": "^0.0.3",
-    "jwk-lite": "^0.1.2",
+    "jose-algorithms": "file:../jose-algorithms",
+    "jwk-lite": "file:../jwk-lite",
     "str2buf": "^1.2.0"
   },
   "devDependencies": {

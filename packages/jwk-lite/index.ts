@@ -16,7 +16,7 @@ export function generateKey(alg, {
   if (!algos[alg]) throw new Error(`alg must be one of ${Object.keys(algos)}`)
   const algo = Object.assign({}, algos[alg])
 
-  if (algo.name === 'RSASSA-PKCS1-v1_5') {
+  if (algo.name === 'RSASSA-PKCS1-v1_5' || algo.name === 'RSA-PSS') {
     algo.modulusLength = modulusLength
     algo.publicExponent = publicExponent
   }
