@@ -1,7 +1,7 @@
 {
   "name": "jws-lite",
   "amdName": "jwsLite",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "isomorphic library to decode, sign, and verify JSON Web Signatures",
   "main": "dist/jws-lite.js",
   "module": "dist/jws-lite.mjs",
@@ -29,7 +29,7 @@
     "b64u-lite": "^1.0.1",
     "isomorphic-webcrypto": "^2.2.0",
     "jose-algorithms": "^0.0.4",
-    "jwk-lite": "^1.0.0",
+    "jwk-lite": "^1.1.0",
     "str2buf": "^1.2.0"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 {
   "name": "jwt-lite",
   "amdName": "jwtLite",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "isomorphic library to decode, sign, and verify JSON Web Tokens",
   "main": "dist/jwt-lite.js",
   "module": "dist/jwt-lite.mjs",
@@ -26,7 +26,7 @@
   "author": "kevlened",
   "license": "MIT",
   "dependencies": {
-    "jws-lite": "^1.0.0"
+    "jws-lite": "^1.1.0"
   },
   "devDependencies": {
     "jasmine": "^3.4.0",
