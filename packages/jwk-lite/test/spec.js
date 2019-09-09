@@ -11,9 +11,6 @@ if (typeof global !== 'undefined' && global.isReactNativeSim) {
 }
 
 const envUnsupported = {
-  node: {
-    exportKey: ['ES256', 'ES384', 'ES512']
-  },
   'react-native-sim': {
     // https://github.com/kevlened/msrCrypto/blob/master/msrCrypto/samples/MsrCryptoRsaSample.html#L95
     generateKey: ['PS256', 'PS384', 'PS512', 'RS256', 'RS384', 'RS512', 'ES512']

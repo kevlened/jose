@@ -10,10 +10,6 @@ if (typeof global !== 'undefined' && global.isReactNativeSim) {
 }
 
 const envUnsupported = {
-  node: {
-    importKey: ['ES512'],
-    verify: ['ES256', 'ES384', 'ES512']
-  },
   'react-native-sim': {
     sign: ['ES256', 'ES384', 'ES512'],
     verify: ['ES512']
